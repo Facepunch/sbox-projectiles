@@ -1,0 +1,29 @@
+{
+  "Title": "Projectiles",
+  "Type": "library",
+  "Org": "conna",
+  "Ident": "projectiles",
+  "Tags": null,
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "ResourcePaths": null,
+  "HasCode": true,
+  "CodePath": "code",
+  "PackageReferences": [],
+  "EditorReferences": null,
+  "Metadata": {
+    "ProjectTemplate": null,
+    "CsProjName": "",
+    "Compiler": {
+      "RootNamespace": "Sandbox",
+      "DefineConstants": "SANDBOX;ADDON;DEBUG",
+      "NoWarn": "1701;1702;1591;",
+      "References": []
+    },
+    "Summary": "\uD83D\uDE80 Lag compensated simulated projectiles using game resources for projectile definitions",
+    "Description": "",
+    "Public": true,
+    "ReplaceTags": "projectiles"
+  }
+}
