@@ -102,7 +102,7 @@ public partial class Projectile : ModelEntity
 
     public override void ClientSpawn()
     {
-		// We only want to create effects if we're the server-side copy.
+		// We only want to create effects if we're NOT the server-side copy.
 		if ( !IsServerSideCopy() )
         {
 			CreateEffects();
