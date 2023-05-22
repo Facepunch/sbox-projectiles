@@ -61,8 +61,10 @@ You should also call `Game.SetRandomSeed( Time.Tick )` before you begin firing a
 ```csharp
 public override void AttackPrimary()
 {
+	// We only want to create projectiles if this is the first time this command is being simulated.
 	if ( Prediction.FirstTime )
 	{
+		// We should do this before firing any projectiles to ensure any random values involved are the same on the client and server.
 		Game.SetRandomSeed( Time.Tick );
 		FireProjectile();
 	}
@@ -73,12 +75,8 @@ private void FireProjectile()
 	if ( Owner is not MyPawnEntity player )
 		return;
 
-	if ( string.IsNullOrEmpty( ProjectileData ) )
-	{
-		throw new Exception( $"Projectile Data has not been set for {this}!" );
-	}
-
-	var projectile = Projectile.Create<T>( ProjectileData );
+	// Let's find the projectile asset with the name `buckshot.proj`.
+	var projectile = Projectile.Create<T>( "buckshot" );
 
 	// Don't hit this weapon entity.
 	projectile.IgnoreEntity = this;
@@ -105,7 +103,7 @@ private void FireProjectile()
 
 	// Let's fetch the speed value from the projectile data, but we could use any value or modify it.
 	var speed = projectile.Data.Speed.GetValue();
-	var velocity = (direction * speed) + (player.Velocity * InheritVelocity);
+	var velocity = (direction * speed);
 	projectile.Initialize( position, velocity, OnProjectileHit );
 }
 
