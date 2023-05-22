@@ -43,13 +43,13 @@ public ProjectileSimulator Projectiles { get; private set; }
 
 public MyPawnEntity() : base()
 {
-  Projectiles = new( this );
+	Projectiles = new( this );
 }
 
 public override void Simulate( IClient client )
 {
-  base.Simulate( client );
-  Projectiles.Simulate();
+	base.Simulate( client );
+	Projectiles.Simulate();
 }
 ```
 
@@ -61,11 +61,11 @@ You should also call `Game.SetRandomSeed( Time.Tick )` before you begin firing a
 ```csharp
 public override void AttackPrimary()
 {
-  if ( Prediction.FirstTime )
-  {
-    Game.SetRandomSeed( Time.Tick );
-    FireProjectile();
-  }
+	if ( Prediction.FirstTime )
+	{
+		Game.SetRandomSeed( Time.Tick );
+		FireProjectile();
+	}
 }
 
 private void FireProjectile()
@@ -82,10 +82,10 @@ private void FireProjectile()
 
 	// Don't hit this weapon entity.
 	projectile.IgnoreEntity = this;
-	
+
 	// We need to set the simulator to use (as mentioned earlier.)
 	projectile.Simulator = player.Projectiles;
-	
+
 	// The attacker is the player who owns this weapon.
 	projectile.Attacker = player;
 
