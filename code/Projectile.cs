@@ -104,7 +104,7 @@ public partial class Projectile : ModelEntity
     {
 		// We only want to create effects if we're NOT the server-side copy.
 		if ( !IsServerSideCopy() )
-        {
+		{
 			CreateEffects();
 		}
 
