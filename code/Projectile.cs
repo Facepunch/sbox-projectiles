@@ -227,7 +227,7 @@ public partial class Projectile : ModelEntity
 		}
 	}
 
-	[Event.PreRender]
+	[GameEvent.PreRender]
 	protected virtual void PreRender()
 	{
 		if ( ModelEntity.IsValid() )
@@ -236,7 +236,7 @@ public partial class Projectile : ModelEntity
 		}
 	}
 
-	[Event.Tick.Server]
+	[GameEvent.Tick.Server]
 	protected virtual void ServerTick()
 	{
 		if ( !Simulator.IsValid() )
