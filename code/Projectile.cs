@@ -100,19 +100,19 @@ public partial class Projectile : ModelEntity
 		base.Spawn();
 	}
 
-    public override void ClientSpawn()
-    {
+	public override void ClientSpawn()
+	{
 		// We only want to create effects if we're NOT the server-side copy.
 		if ( !IsServerSideCopy() )
 		{
 			CreateEffects();
 		}
 
-        base.ClientSpawn();
-    }
+		base.ClientSpawn();
+	}
 
 	public virtual void CreateEffects()
-    {
+	{
 		if ( !string.IsNullOrEmpty( Data.TrailEffect ) )
 		{
 			Trail = Particles.Create( Data.TrailEffect, this );
@@ -132,19 +132,25 @@ public partial class Projectile : ModelEntity
 		{
 			LaunchSound = PlaySound( Data.LaunchSound );
 		}
+
+		if ( !string.IsNullOrEmpty( Data.ModelName ) )
+		{
+			ModelEntity = new SceneObject( Game.SceneWorld, Data.ModelName );
+			ModelEntity.Transform = Transform;
+		}
 	}
 
-    public virtual void Simulate()
-    {
+	public virtual void Simulate()
+	{
 		if ( Data.FaceDirection )
-        {
+		{
 			Rotation = Rotation.LookAt( Velocity.Normal );
-        }
+		}
 
 		if ( Debug )
-        {
+		{
 			DebugOverlay.Sphere( Position, Data.Radius, Game.IsClient ? Color.Blue : Color.Red );
-        }
+		}
 
 		var newPosition = GetTargetPosition();
 
@@ -180,7 +186,7 @@ public partial class Projectile : ModelEntity
 	}
 
 	public bool IsServerSideCopy()
-    {
+	{
 		return !IsClientOnly && Owner.IsValid() && Owner.IsLocalPawn;
 
 	}
@@ -199,16 +205,16 @@ public partial class Projectile : ModelEntity
 		newPosition -= new Vector3( 0f, 0f, GravityModifier * Time.Delta );
 
 		return newPosition;
-	} 
+	}
 
 	[ClientRpc]
 	protected virtual void PlayHitEffects( Vector3 normal )
-    {
+	{
 		if ( IsServerSideCopy() )
-        {
+		{
 			// We don't want to play hit effects if we're the server-side copy.
 			return;
-        }
+		}
 
 		if ( !string.IsNullOrEmpty( Data.ExplosionEffect ) )
 		{
@@ -245,7 +251,7 @@ public partial class Projectile : ModelEntity
 		}
 	}
 
-    protected override void OnDestroy()
+	protected override void OnDestroy()
 	{
 		Simulator?.Remove( this );
 		RemoveEffects();
